@@ -2,6 +2,7 @@
 var c = document.querySelector(`#pong`)
 var ctx = c.getContext(`2d`)
 var player = [];
+var pad = [];
 
 
 //timer to make the game run at 60fps
@@ -11,8 +12,8 @@ var timer = setInterval(main, 1000/60)
 var fy = .97
 
 //Player Setup
-player[0] = new player("Player_1", new Box)
-player[1] = new player("Player_2", new Box)
+player[0] = new player("Player_1", new Box())
+player[1] = new player("Player_2", new Box())
 
 //Paddkes stored to pad
 pad[0] = player[0].pad;
