@@ -69,22 +69,22 @@ function main()
     pad[0].vy *= fy
     pad[1].vy *= fy
 
-    //player movement
-    pad[0].move();
-    pad[1].move();
+    //player movement loop
+    for (let i = 0; i < pad.length; i++){
+        pad[i].move();
+    }
+    
 
     //ball movement
     ball.move()
 
-    //p1 collision
-    if(pad[0].y < 0+pad[0].h/2)
-    {
-        pad[0].y = 0+pad[0].h/2
+    //player collision loop
+    for (let i = 0; i < pad.length; i++){
+        if(pad[i].y < pad[i].h/2) pad[i].y = pad[i].h/2;
+        if(pad[i].y > c.height - pad[i].h/2) pad[i].y = c.height-pad[i].h/2   
+   
     }
-    if(pad[0].y > c.height-pad[0].h/2)
-    {
-        pad[0].y = c.height-pad[0].h/2
-    }
+    
 
     //p2 Collision
     if(pad[1].y < 0+pad[1].h/2)
@@ -140,8 +140,9 @@ function main()
     }
 
     //draw the objects
-    pad[0].draw()
-    pad[1].draw()
+  for (let i = 0; i < pad.length; i++){
+        pad[i].draw();
+    }
     ball.draw()
 
     for(let i = 0; i < scoreBoard.length; i++){
