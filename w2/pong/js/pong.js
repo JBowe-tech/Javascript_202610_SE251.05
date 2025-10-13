@@ -3,7 +3,7 @@ var c = document.querySelector(`#pong`)
 var ctx = c.getContext(`2d`)
 var player = [];
 var pad = [];
-var scoreBoard = document.querySelectorAll(`#score, div`);
+var scoreBoard = document.querySelectorAll(`#score div`);
 
 //timer to make the game run at 60fps
 var timer = setInterval(main, 1000/60)
