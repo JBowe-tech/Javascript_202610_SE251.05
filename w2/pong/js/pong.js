@@ -86,16 +86,6 @@ function main()
     }
     
 
-    //p2 Collision
-    if(pad[1].y < 0+pad[1].h/2)
-    {
-        pad[1].y = 0+pad[1].h/2
-    }  
-     if(pad[1].y > c.height-pad[1].h/2)
-    {
-        pad[1].y = c.height-pad[1].h/2
-    }
-
     //ball collision 
     if(ball.x < 0)
     {//player 2 scores
