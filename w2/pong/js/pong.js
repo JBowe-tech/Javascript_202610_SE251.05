@@ -1,6 +1,8 @@
 //canvas and context
 var c = document.querySelector(`#pong`)
 var ctx = c.getContext(`2d`)
+var player = [];
+
 
 //timer to make the game run at 60fps
 var timer = setInterval(main, 1000/60)
@@ -8,18 +10,20 @@ var timer = setInterval(main, 1000/60)
 //global friction variable
 var fy = .97
 
+//Player Setup
+player[0] = new player("Player_1", new Box)
+player[1] = new player("Player_2", new Box)
+
 //p1 setup
-var p1 = new Box();
-p1.w = 20
-p1.h = 150
-p1.x = 0 + p1.w/2
+player[0].w = 20
+player[0].h = 150
+player[0].x = 0 + player[0].w/2
 
 //p2 setup
-var p2 = new Box();
-p2.w = 20
-p2.h = 150
-p2.x = c.width - p2.w/2
-p2.color = `purple`
+player[1].w = 20
+player[1].h = 150
+player[1].x = c.width - player[1].w/2
+player[1].pad.color = `purple`
 
 //ball setup
 var ball = new Box();
