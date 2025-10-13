@@ -12,8 +12,8 @@ var timer = setInterval(main, 1000/60)
 var fy = .97
 
 //Player Setup
-player[0] = new player("Player_1", new Box())
-player[1] = new player("Player_2", new Box())
+player[0] = new Player("Player_1", new Box());
+player[1] = new Player("Player_2", new Box());
 
 //Paddkes stored to pad
 pad[0] = player[0].pad;
