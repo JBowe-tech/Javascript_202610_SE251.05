@@ -12,8 +12,8 @@ var timer = setInterval(main, 1000/60)
 var fy = .97
 
 //Player Setup
-player[0] = new Player("Player_1", new Box());
-player[1] = new Player("Player_2", new Box());
+player[0] = new Player(`Player_1`, new Box());
+player[1] = new Player(`Player_2`, new Box());
 
 //Paddles stored to pad
 pad[0] = player[0].pad;
@@ -98,17 +98,24 @@ function main()
 
     //ball collision 
     if(ball.x < 0)
-    {
+    {//player 2 scores
+        player[1].score++;
+        console.log(player[0].score + ` | ` + player[1].score);
+
         ball.x = c.width/2
         ball.y  =c.height/2
     }
     if(ball.x > c.width)
-    {
+    {//player 1 scores
+        player[0].score++;
+        console.log(player[0].score + ` | ` + player[1].score);
+
         ball.x = c.width
         ball.vx = -ball.vx
     }
     if(ball.y < 0)
     {
+    
         ball.y = 0
         ball.vy = -ball.vy
     }
