@@ -50,28 +50,50 @@ fill.forEach((input) => {
         .Change the player's key to the value of the input
         .Show the player's key in the output div 
 -----------*/
+let currentState = `play`; 
 
-let currentState = `play`;
+const keyClasses = ['u', 'd', 's']; 
+keyClasses.forEach((keyClass) => {
+    var inputs = document.querySelectorAll(`.${keyClass}`);
+    inputs.forEach((input, index) => {
+        var player = players[`player${index + 1}`];
+        var output = input.nextElementSibling;
 
-var up = document.querySelectorAll(`.u`);
+        input.value = player.keys[keyClass];
+        if (output) output.textContent = player.keys[keyClass];
 
-up.forEach((input, index) => {
-    var player = players[`player${index + 1}`]; 
-    var output = input.nextElementSibling;    
+        input.addEventListener(`keydown`, (e) => {
+            e.preventDefault();
+            let keyName = e.key;
+            input.value = keyName;
+            player.keys[keyClass] = keyName;
+            if (output) output.textContent = keyName;
+        });
 
-    input.value = player.keys.u;
-    if (output) output.textContent = player.keys.u;
-
-    input.addEventListener(`keydown`, (e) => {
-        e.preventDefault();     
-
-        let keyName = e.key;
-        input.value = keyName;    
-        player.keys.u = keyName;  
-        if (output) output.textContent = keyName; 
+        input.addEventListener(`focus`, () => {
+            currentState = `pause`;
+        });
     });
+});
 
-    input.addEventListener(`focus`, () => {
-        currentState = `pause`;
+//Stroke
+
+var stroke = document.querySelectorAll(`.stroke`);
+
+stroke.forEach((input, index) => {
+    var playerId = index + 1;
+    var output = input.nextElementSibling;
+    var paddle = document.querySelector(`#player${playerId} paddle`);
+
+    if (paddle) {
+        var computedStroke = getComputedStyle(paddle).stroke;
+        input.value = computedStroke || '#000000';
+        if (output) output.textContent = input.value;
+    }
+
+    input.addEventListener(`input`, (e) => {
+        var color = e.target.value;
+        if (paddle) paddle.style.stroke = color;
+        if (output) output.textContent = color;
     });
 });
