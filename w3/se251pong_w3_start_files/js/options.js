@@ -97,3 +97,26 @@ stroke.forEach((input, index) => {
         if (output) output.textContent = color;
     });
 });
+//Straight Keys
+var straight = document.querySelectorAll('.s');
+
+straight.forEach(function(input, index) {
+    var player = players['player' + (index + 1)];
+    var output = input.nextElementSibling;
+
+    input.value = player.keys.s;
+    if (output) output.textContent = player.keys.s;
+
+    input.addEventListener('keydown', function(e) {
+        e.preventDefault();
+        var key = e.key;
+        if (key.length === 1) key = key.toLowerCase();
+        input.value = key;
+        player.keys.s = key;
+        if (output) output.textContent = key;
+    });
+
+    input.addEventListener('focus', function() {
+        currentState = 'pause';
+    });
+});
