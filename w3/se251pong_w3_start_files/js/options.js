@@ -3,13 +3,13 @@
     . on click
     . show or hide the `.sides` div
 ---------*/
-var option = document.querySelector("#options h2");
+var option = document.querySelector(`#options h2`);
 
-var side = document.querySelector("#options .sides");
+var side = document.querySelector(`#options .sides`);
 
 if (option && side) {
-    option.addEventListener("click", () => {
-        side.classList.toggle("hidden");
+    option.addEventListener(`click`, e=> {
+        side.classList.toggle(`hidden`);
     });
 }
 
@@ -23,6 +23,24 @@ if (option && side) {
         . Show the fill's hex code in the output div 
 
 -----------*/
+var fill = document.querySelectorAll(`.fill`);
+
+fill.forEach((input) => {
+    var playerId = input.dataset.player;
+    var output = input.nextElementSibling; 
+    var paddle = document.querySelector(`#player${playerId}-paddle`); 
+
+    if (paddle) {
+        input.value = paddle.style.fill || `#ffffff`;
+        if (output) output.innerHTML = input.value;
+    }
+
+    input.addEventListener(`input`, (e) => {
+        var color = e.target.value;
+        if (paddle) paddle.style.fill = color;
+        if (output) output.innerHTML = color;
+    });
+});
 
 /*---------
     Program the six key inputs to do the following:
