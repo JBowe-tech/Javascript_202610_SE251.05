@@ -28,7 +28,7 @@ var fill = document.querySelectorAll(`.fill`);
 fill.forEach((input) => {
     var playerId = input.dataset.player;
     var output = input.nextElementSibling; 
-    var paddle = document.querySelector(`#player${playerId}-paddle`); 
+    var paddle = document.querySelector(`#player${playerId},paddle`); 
 
     if (paddle) {
         input.value = paddle.style.fill || `#ffffff`;
