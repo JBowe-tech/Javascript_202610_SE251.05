@@ -28,7 +28,7 @@ var fill = document.querySelectorAll(`.fill`);
 fill.forEach((input) => {
     var playerId = input.dataset.player;
     var output = input.nextElementSibling; 
-    var paddle = document.querySelector(`#player${playerId},paddle`); 
+    var paddle = document.querySelector(`#player${playerId} paddle`);
 
     if (paddle) {
         input.value = paddle.style.fill || `#ffffff`;
@@ -50,3 +50,28 @@ fill.forEach((input) => {
         .Change the player's key to the value of the input
         .Show the player's key in the output div 
 -----------*/
+
+let currentState = `play`;
+
+var up = document.querySelectorAll(`.u`);
+
+up.forEach((input, index) => {
+    var player = players[`player${index + 1}`]; 
+    var output = input.nextElementSibling;    
+
+    input.value = player.keys.u;
+    if (output) output.textContent = player.keys.u;
+
+    input.addEventListener(`keydown`, (e) => {
+        e.preventDefault();     
+
+        let keyName = e.key;
+        input.value = keyName;    
+        player.keys.u = keyName;  
+        if (output) output.textContent = keyName; 
+    });
+
+    input.addEventListener(`focus`, () => {
+        currentState = `pause`;
+    });
+});
