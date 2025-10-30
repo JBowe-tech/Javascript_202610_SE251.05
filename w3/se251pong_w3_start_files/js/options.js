@@ -8,7 +8,7 @@ var option = document.querySelector(`#options h2`);
 var side = document.querySelector(`#options .sides`);
 
 if (option && side) {
-    option.addEventListener(`click`, e=> {
+    option.addEventListener(`click`, ()=> {
         side.classList.toggle(`hidden`);
     });
 }
@@ -25,20 +25,19 @@ if (option && side) {
 -----------*/
 var fill = document.querySelectorAll(`.fill`);
 
-fill.forEach((input) => {
-    var playerId = input.dataset.player;
+fill.forEach((input, index) => {
     var output = input.nextElementSibling; 
-    var paddle = document.querySelector(`#player${playerId} paddle`);
+    var paddle = player[index].pad;
+    var p = player[index];
 
-    if (paddle) {
-        input.value = paddle.style.fill || `#ffffff`;
-        if (output) output.innerHTML = input.value;
-    }
+    input.value = p.fill || `#ffffff`
 
+    if(output) output.innerHTML  = input.value;
     input.addEventListener(`input`, (e) => {
         var color = e.target.value;
-        if (paddle) paddle.style.fill = color;
-        if (output) output.innerHTML = color;
+        p.fill = color;
+        paddle.fill = color;
+        if(output) output.innerHTML = color; 
     });
 });
 
@@ -50,23 +49,23 @@ fill.forEach((input) => {
         .Change the player's key to the value of the input
         .Show the player's key in the output div 
 -----------*/
-let currentState = `play`; 
 
-const keyClasses = ['u', 'd', 's']; 
+const keyClasses = ['u', 'd']; 
+
 keyClasses.forEach((keyClass) => {
     var inputs = document.querySelectorAll(`.${keyClass}`);
     inputs.forEach((input, index) => {
-        var player = players[`player${index + 1}`];
+        var p = player[index];
         var output = input.nextElementSibling;
 
-        input.value = player.keys[keyClass];
-        if (output) output.textContent = player.keys[keyClass];
+        input.value = p.keys[keyClass];
+        if (output) output.textContent = p.keys[keyClass];
 
         input.addEventListener(`keydown`, (e) => {
             e.preventDefault();
             let keyName = e.key;
             input.value = keyName;
-            player.keys[keyClass] = keyName;
+            p.keys[keyClass] = keyName;
             if (output) output.textContent = keyName;
         });
 
@@ -81,42 +80,39 @@ keyClasses.forEach((keyClass) => {
 var stroke = document.querySelectorAll(`.stroke`);
 
 stroke.forEach((input, index) => {
-    var playerId = index + 1;
     var output = input.nextElementSibling;
-    var paddle = document.querySelector(`#player${playerId} paddle`);
-
-    if (paddle) {
-        var computedStroke = getComputedStyle(paddle).stroke;
-        input.value = computedStroke || '#000000';
-        if (output) output.textContent = input.value;
-    }
+    var paddle = player[index].pad;
+    var p = player[index];
+    
+    input.value = p.stroke || `#000000`
+    if (output) output.textContent = input.value;
 
     input.addEventListener(`input`, (e) => {
         var color = e.target.value;
-        if (paddle) paddle.style.stroke = color;
-        if (output) output.textContent = color;
+        p.stroke = color;
+        paddle.stroke = color;
+        if(output) output.textContent = color;
     });
 });
 //Straight Keys
 var straight = document.querySelectorAll('.s');
 
 straight.forEach(function(input, index) {
-    var player = players['player' + (index + 1)];
+    var p = player[index];
     var output = input.nextElementSibling;
 
-    input.value = player.keys.s;
-    if (output) output.textContent = player.keys.s;
+    input.value = p.keys.s;
+    if (output) output.textContent = p.keys.s;
 
     input.addEventListener('keydown', function(e) {
         e.preventDefault();
         var key = e.key;
-        if (key.length === 1) key = key.toLowerCase();
         input.value = key;
-        player.keys.s = key;
+        p.keys.s = key;
         if (output) output.textContent = key;
     });
 
-    input.addEventListener('focus', function() {
+    input.addEventListener('focus', () => {
         currentState = 'pause';
     });
 });
