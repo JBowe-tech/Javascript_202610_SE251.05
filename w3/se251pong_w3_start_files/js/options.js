@@ -112,7 +112,27 @@ straight.forEach(function(input, index) {
         if (output) output.textContent = key;
     });
 
+
     input.addEventListener('focus', () => {
         currentState = 'pause';
     });
 });
+
+//Background Color
+var BackgroundColorInput = document.querySelector('#background-color');
+var BackgroundOutput = document.querySelector('#background-output');
+var canvas = document.querySelector('#pong');
+
+if (BackgroundColorInput && canvas) {
+    // Set the initial color
+    var initialColor = BackgroundColorInput.value || '#f7f0f0';
+    canvas.style.backgroundColor = initialColor;
+    if (BackgroundOutput) BackgroundOutput.textContent = initialColor;
+
+    // Listen for changes
+    BackgroundColorInput.addEventListener('input', (e) => {
+        var color = e.target.value;
+        canvas.style.backgroundColor = color;
+        if (BackgroundOutput) BackgroundOutput.textContent = color;
+    });
+}
