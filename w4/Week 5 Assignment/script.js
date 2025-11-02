@@ -42,7 +42,44 @@ $(`button`)[0].addEventListener(`click`, e=>{
     localStorage.setItem(`posts`,JSON.stringify(arr))
 })
 
+//Delete - Button
+$(`button`)[1].addEventListener(`click`, e=>{
+    Array.from(document.querySelectorAll(`.post input`)).forEach(value=>{
+         value.classList.toggle(`hidden`);
+    
+    });
 
+//All and Confirm
+    $(`#all`).classList.toggle(`hidden`)
+    $(`#confirm`).classList.toggle(`hidden`)
+});
+
+//All Button
+$(`#all`).addEventListener(`click`, e=>{
+    Array.from($(`.post input`)).forEach(value=>{
+        value.checked = true;
+    });
+});
+
+//Confirm Button
+$(`#confirm`).addEventListener(`click`, e=>{
+    let posts = Array.from($(`.post`));
+    posts.forEach(p=>{
+        let chk = p.querySelector(`input`);
+        if(chk.checked) p.remove();
+    });
+
+    //Save Posts
+    var arr = Array.from($(`.post`)).map(value=>value.outerHTML)
+    localStorage.setItem(`posts`,JSON.stringify(arr));
+
+    //Hide Checkboxes
+    Array.from($(`.post input`)).forEach(value=>{
+        value.classList.add(`hidden`);
+    });
+    $(`#all`).classList.add(`hidden`)
+    $(`#confirm`).classList.add(`hidden`)
+});
 
 
 /*
